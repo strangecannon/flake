@@ -6,7 +6,10 @@
     outputs = { self, nixpkgs, ... }:
     {
         nixosConfigurations = {
-            sc-testvm = import ./hosts/sc-testvm;
+            sc-testvm = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit self; };
+                modules = [ ./hosts/sc-testvm ];
+            };
         };
     };
 }
